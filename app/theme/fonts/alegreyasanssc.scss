@@ -1,0 +1,8 @@
+$alegreyasanssc-font-path: $font-path !default;
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Roboto Light"), local("Roboto-Light"), url("#{$roboto-font-path}/roboto-light.ttf") format("truetype"), url("#{$roboto-font-path}/roboto-light.woff") format("woff");
+}
