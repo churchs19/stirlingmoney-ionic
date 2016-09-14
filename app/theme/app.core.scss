@@ -10,3 +10,17 @@
 @import "../pages/home/home";
 
 @import "../pages/page2/page2";
+
+.toolbar-title,
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Alegreya Sans SC";
+  font-weight: 500;
+}
+
+.menu-inner > ion-content {
+  background: #ffffff; /* Old Browsers */
+  background: -webkit-linear-gradient(top,#ffffff,#520853); /*Safari 5.1-6*/
+  background: -o-linear-gradient(top,#ffffff,#520853); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(top,#ffffff,#520853); /*Fx 3.6-15*/
+  background: linear-gradient(to bottom, #ffffff, #520853); /*Standard*/
+}
