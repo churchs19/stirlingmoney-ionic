@@ -26,10 +26,22 @@
 // are different per mode.
 
 $colors: (
-  primary:    #387ef5,
-  secondary:  #32db64,
+  primary:    #49488e,
+  secondary:  #212040,
   danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
-  favorite:   #69BB7B
+  light:      #ededf2,
+  dark:       #2a2a2f,
+  favorite:   #315B25
 );
+
+$toolbar-background:         color($colors, primary);
+$toolbar-border-color:       #b2b2b2;
+$toolbar-text-color:         #fff;
+//$toolbar-active-color:       $link-color !default;
+$toolbar-inactive-color:     color($colors, secondary);
+// .test {
+//   background-color: #49488e;
+//   color: #212040;
+//   border-color: #2a2a2f;
+//   outline-color: #f53d3d;
+// }
