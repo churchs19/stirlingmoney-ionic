@@ -67,7 +67,10 @@ gulp.task('build', ['clean'], function(done){
 gulp.task('sass', buildSass);
 gulp.task('html', copyHTML);
 gulp.task('fonts', copyFonts);
-gulp.task('scripts', copyScripts);
+gulp.task('scripts', function () {
+  copyScripts({});
+  copyScripts({src:'node_modules/adal-angular/dist/adal.min.js'});
+});
 gulp.task('clean', function(){
   return del('www/build');
 });

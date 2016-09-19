@@ -7,8 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'
-    data: gap: https://login.windows.net http://stirlingmoney.azure-mobile.net; style-src 'self'">
+  <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self'
+    data: gap: https://login.windows.net http://stirlingmoney.azure-mobile.net; style-src 'self'">-->
   <link rel="manifest" href="manifest.json">
 
   <!-- un-comment this code to enable service worker
@@ -36,6 +36,8 @@
   <!-- Zone.js and Reflect-metadata  -->
   <script src="build/js/Reflect.js"></script>
   <script src="build/js/zone.js"></script>
+  <!-- ADAL Authentication -->
+  <script src="build/js/adal.min.js"></script>
   <!-- the bundle which is built from the app's source code -->
   <script src="build/js/app.bundle.js"></script>
 </body>
