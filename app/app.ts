@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, Platform, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
+import { AdalService } from './lib/angular2-adal/core';
+import { SecretService } from './services/secret.service';
 
 import { AccountList } from './pages/account-list/account-list';
 import { Page2 } from './pages/page2/page2';
@@ -15,7 +17,12 @@ class MyApp {
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform,
+              private adalService: AdalService,
+              private secretService: SecretService) {
+
+    this.adalService.init(this.secretService.adalConfig);
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
