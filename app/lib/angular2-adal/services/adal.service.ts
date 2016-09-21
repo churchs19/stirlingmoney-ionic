@@ -10,7 +10,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {OAuthData} from './oauthdata.model';
-import adalLib = require('../../adal/adal');
+import adalLib = require('adal');
 
 @Injectable()
 export class AdalService {
