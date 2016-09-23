@@ -7,7 +7,8 @@ declare var AuthenticationContext: adal.AuthenticationContextStatic;
 declare var Logging: adal.Logging;
 
 declare module "adal" {
-    export = { AuthenticationContext, Logging };
+//    export = { AuthenticationContext, Logging };
+    export = AuthenticationContext;
 }
 
 declare namespace adal {
@@ -52,6 +53,11 @@ declare namespace adal {
 
     interface AuthenticationContextStatic {
         new (config: Config): AuthenticationContext;
+
+        /**
+         *
+         */
+        inject(conf: Config): void;
     }
 
     interface AuthenticationContext {

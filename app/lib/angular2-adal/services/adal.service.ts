@@ -39,7 +39,7 @@ export class AdalService {
         configOptions.postLogoutRedirectUri = configOptions.postLogoutRedirectUri || pathDefault;
 
         // create instance with given config
-        this.adalContext = new adalLib.AuthenticationContext(configOptions);
+        this.adalContext = new adalLib.inject(configOptions);
 
         // loginresource is used to set authenticated status
         this.updateDataFromCache(this.adalContext.config.loginResource);

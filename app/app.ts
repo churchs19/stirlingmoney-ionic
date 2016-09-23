@@ -48,4 +48,4 @@ class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [AdalService, SecretService]);
