@@ -1,8 +1,12 @@
+// Place your settings in this file to overwrite default and user settings.
 {
-    "typescript.check.workspaceVersion": false,
-    "files.exclude": {
-      "node_modules/": true,
-      "target/": true,
-      ".vscode/": true
-    }
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "node_modules": true,
+    ".vscode": true,
+    "**/www/build/**": true
+  }
 }
