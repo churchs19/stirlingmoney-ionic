@@ -1,7 +1,9 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { TextMaskModule } from 'angular2-text-mask';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AccountsPage } from '../pages/accounts/accounts';
+import { AddEditAccountPage } from '../pages/add-edit-account/add-edit-account';
 import { BudgetsPage } from '../pages/budgets/budgets';
 import { GoalsPage } from '../pages/goals/goals';
 import { CategoriesPage } from '../pages/categories/categories';
@@ -11,6 +13,7 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
   declarations: [
     MyApp,
     AccountsPage,
+    AddEditAccountPage,
     BudgetsPage,
     GoalsPage,
     CategoriesPage,
@@ -18,12 +21,14 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
     TransactionDetailsPage
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    TextMaskModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     AccountsPage,
+    AddEditAccountPage,
     BudgetsPage,
     GoalsPage,
     CategoriesPage,

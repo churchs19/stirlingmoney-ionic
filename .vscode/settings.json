@@ -9,4 +9,6 @@
     ".vscode": true,
     "**/www/build/**": true
   }
+,
+"typescript.tsdk": "./node_modules/typescript/lib"
 }

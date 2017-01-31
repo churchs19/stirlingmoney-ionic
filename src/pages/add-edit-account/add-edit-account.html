@@ -1,0 +1,26 @@
+<!--
+  Generated template for the AddEditAccount page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>{{ mode }} Account</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Account Name</ion-label>
+      <ion-input #accountName type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Initial Balance</ion-label>
+      <ion-input #initialBalance type="number"></ion-input>
+    </ion-item>
+  </ion-list>
+  <button ion-button full>
+    <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Save
+  </button>
+</ion-content>

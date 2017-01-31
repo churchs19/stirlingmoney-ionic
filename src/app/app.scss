@@ -14,3 +14,22 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.primary {
+  color: color($colors, primary, base);
+}
+
+.secondary {
+  color: color($colors, secondary, base);
+}
+
+.danger {
+  color: color($colors, danger, base);
+}
+
+.light {
+  color: color($colors, light, base);
+}
+
+.dark {
+  color: color($colors, dark, base);
+}
