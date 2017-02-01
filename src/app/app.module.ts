@@ -1,4 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { FormsModule }   from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -22,7 +23,8 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    TextMaskModule
+    TextMaskModule,
+    FormsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

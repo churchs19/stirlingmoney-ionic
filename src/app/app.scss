@@ -33,3 +33,29 @@
 .dark {
   color: color($colors, dark, base);
 }
+
+ion-item.ng-invalid.ng-touched .item-inner {
+  border-bottom: 2px solid color($colors, danger, base) !important;
+}
+
+ion-input {
+  padding-left: 5px;
+}
+
+ion-input.ng-valid.ng-touched[required], ion-input.ng-valid.ng-touched.required  {
+  border-left: 5px solid color($colors, success, base);
+}
+
+ion-input.ng-invalid.ng-touched {
+  border-left: 5px solid color($colors, danger, base);
+}
+
+ion-list .error-box {
+    margin-left: 16px;
+    padding: 5px;
+    border-left: 1px solid color($colors, danger, base);
+    border-right: 1px solid color($colors, danger, base);
+    border-bottom: 1px solid color($colors, danger, base);
+    background: rgba(color($colors, danger, base), 0.1);
+    color: color($colors, danger, base);
+}

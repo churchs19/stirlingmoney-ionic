@@ -16,9 +16,9 @@
   <ion-list>
     <ion-item-sliding *ngFor="let a of accounts">
       <ion-item (click)="accountDetails(a)">
-      <ion-avatar item-left>
+      <ion-thumbnail item-left>
         <img src="assets/account-icons/Accounts-Book.png">
-      </ion-avatar>
+      </ion-thumbnail>
       <h2>{{a.name}}</h2>
       <h3>Available Balance: {{a.availableBalance | currency:'USD':true}}</h3>
       <p>Posted Balance: {{a.postedBalance | currency:'USD':true}}</p>

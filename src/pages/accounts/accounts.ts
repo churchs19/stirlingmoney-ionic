@@ -1,10 +1,12 @@
 import {
-  Component
+  Component,
+  ViewChild
 } from '@angular/core';
 import {
   NavController,
   NavParams,
-  ActionSheetController
+  ActionSheetController,
+  List
 } from 'ionic-angular';
 import {
   AccountDetailsPage
@@ -24,6 +26,7 @@ import {
   templateUrl: 'accounts.html'
 })
 export class AccountsPage {
+  @ViewChild(List) list: List;
   accounts: Array < AccountSummary > ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
@@ -58,12 +61,14 @@ export class AccountsPage {
   }
 
   addAccount() {
+    this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Add'
     })
   }
 
   editAccount(account: AccountSummary) {
+    this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Edit'
     })
@@ -78,6 +83,7 @@ export class AccountsPage {
           role: 'destructive',
           handler: () => {
             console.log('Destructive clicked');
+            this.list.closeSlidingItems();
           }
         },
         {
@@ -85,6 +91,7 @@ export class AccountsPage {
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
+            this.list.closeSlidingItems();
           }
         }
       ]

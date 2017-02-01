@@ -10,17 +10,21 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Account Name</ion-label>
-      <ion-input #accountName type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Initial Balance</ion-label>
-      <ion-input #initialBalance type="number"></ion-input>
-    </ion-item>
-  </ion-list>
-  <button ion-button full>
-    <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Save
-  </button>
+  <form (ngSubmit)="onSubmit()" #editAccountForm="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked for="accountName">Account Name</ion-label>
+        <ion-input type="text" id="accountName" name="accountName" required [(ngModel)]="model.accountName" #accountName="ngModel"></ion-input>
+      </ion-item>
+      <div *ngIf="accountName.invalid && accountName.touched" class="error-box">Account name is required</div>
+      <ion-item>
+        <ion-label stacked for="initialBalance">Initial Balance</ion-label>
+        <ion-input type="number" id="initialBalance" name="initialBalance" required [(ngModel)]="model.initialBalance" #initialBalance="ngModel"></ion-input>
+        <div *ngIf="initialBalance.invalid && initialBalance.touched" class="error-box">Initial Balance is required</div>
+      </ion-item>
+    </ion-list>
+    <button ion-button full type="submit" [disabled]="!editAccountForm.valid">
+      <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;&nbsp;Save
+    </button>
+  </form>
 </ion-content>
