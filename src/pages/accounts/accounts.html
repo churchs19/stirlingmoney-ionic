@@ -20,8 +20,8 @@
         <img src="assets/account-icons/Accounts-Book.png">
       </ion-thumbnail>
       <h2>{{a.name}}</h2>
-      <h3>Available Balance: {{a.availableBalance | currency:'USD':true}}</h3>
-      <p>Posted Balance: {{a.postedBalance | currency:'USD':true}}</p>
+      <h3>Available Balance: <span class="pull-right">{{a.availableBalance | currency:'USD':true}}</span></h3>
+      <p>Posted Balance: <span class="pull-right">{{a.postedBalance | currency:'USD':true}}</span></p>
     </ion-item>
     <ion-item-options side="left">
       <button ion-button color="secondary" (click)="editAccount(a)">

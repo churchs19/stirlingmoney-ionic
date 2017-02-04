@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, List, ActionSheetController } from 'ionic-angular';
 import { AccountDetailsModel } from './account-details-model';
 
 /*
@@ -14,8 +14,9 @@ import { AccountDetailsModel } from './account-details-model';
 })
 export class AccountDetailsPage {
   model: AccountDetailsModel;
+  @ViewChild(List) list: List;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
     this.model=new AccountDetailsModel(
       'accountId1',
       'Checking',
@@ -29,4 +30,47 @@ export class AccountDetailsPage {
     console.log('ionViewDidLoad AccountDetailsPage');
   }
 
+  filterList() {
+
+  }
+
+  addTransaction() {
+    this.list.closeSlidingItems();
+    let actionSheet = this.actionSheetCtrl.create({
+      buttons: [{
+          text: 'Withdraw',
+          handler: () => {
+            console.log('Withdraw clicked');
+          }
+        },
+        {
+          text: 'Write Check',
+          handler: () => {
+            console.log('Write Check clicked');
+          }
+        },
+        {
+          text: 'Deposit',
+          handler: () => {
+            console.log('Deposit clicked');
+          }
+        },
+        {
+          text: 'Transfer',
+          handler: () => {
+            console.log('Transfer clicked');
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+
+    actionSheet.present();
+  }
 }
