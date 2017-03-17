@@ -1,3 +1,8 @@
 page-account-details {
-
+  .item-md {
+    border-bottom: 1px solid #dedede;
+    &.item-block .item-inner {
+      border-bottom: none;
+    }
+  }
 }
