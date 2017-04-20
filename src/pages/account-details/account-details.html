@@ -24,74 +24,41 @@
 <ion-content>
   <ion-list>
     <ion-item-group>
-      <ion-item-group>
-        <ion-item-divider color="light">A</ion-item-divider>
+      <ion-item-divider color="light">A</ion-item-divider>
+      <ion-item-sliding>
         <ion-item>
-          <!--<ion-grid>
-            <ion-row>
-              <ion-col width-10 center>-->
-                <ion-label>
-                  <ion-grid no-padding>
-                    <ion-row>
-                      <ion-col>
-                        Test transaction
-                      </ion-col>
-                      <ion-col col-4>
-                        $10.30
-                      </ion-col>
-                    </ion-row>
-                    <ion-row>
-                      <ion-col text-muted>
-                        This is a description
-                      </ion-col>
-                    </ion-row>
-                  </ion-grid>
-                </ion-label>
-                <ion-checkbox></ion-checkbox>
-              <!--</ion-col>-->
-              <!--<ion-col>
-                <h3>
-                  Test Transaction
-                </h3>
-                <p>
-                  Test Category
-                </p>
-              </ion-col>
-              <ion-col width-20 center>
-                $102.25
-              </ion-col>-->
-            <!--</ion-row>
-          </ion-grid>-->
+          <ion-label>
+            <ion-grid no-padding>
+              <ion-row>
+                <ion-col>
+                  Test transaction
+                </ion-col>
+                <ion-col col-4>
+                  $10.30
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col text-muted>
+                  This is a description
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+          <ion-checkbox></ion-checkbox>
         </ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-      </ion-item-group>
-      <ion-item-group>
-        <ion-item-divider color="light">B</ion-item-divider>
-        <ion-item>Angola</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-      </ion-item-group>
-      <ion-item-group>
-        <ion-item-divider color="light">C</ion-item-divider>
-        <ion-item>Angola</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-        <ion-item>Argentina</ion-item>
-      </ion-item-group>
+        <ion-item-options side="left">
+          <button ion-button color="primary">
+            <ion-icon name="create"></ion-icon>
+            Edit
+          </button>
+        </ion-item-options>
+        <ion-item-options side="right">
+          <button ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
     </ion-item-group>
   </ion-list>
   <ion-fab bottom right>
