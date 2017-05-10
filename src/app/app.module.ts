@@ -7,8 +7,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { AccountsPage } from '../pages/accounts/accounts';
 import { AddEditAccountPage } from '../pages/add-edit-account/add-edit-account';
-import { BudgetsPage } from '../pages/budgets/budgets';
-import { GoalsPage } from '../pages/goals/goals';
+// import { BudgetsPage } from '../pages/budgets/budgets';
+// import { GoalsPage } from '../pages/goals/goals';
 import { CategoriesPage } from '../pages/categories/categories';
 import { AccountDetailsPage } from '../pages/account-details/account-details';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
@@ -17,8 +17,8 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
     MyApp,
     AccountsPage,
     AddEditAccountPage,
-    BudgetsPage,
-    GoalsPage,
+    // BudgetsPage,
+    // GoalsPage,
     CategoriesPage,
     AccountDetailsPage,
     TransactionDetailsPage
@@ -35,8 +35,8 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
     MyApp,
     AccountsPage,
     AddEditAccountPage,
-    BudgetsPage,
-    GoalsPage,
+    // BudgetsPage,
+    // GoalsPage,
     CategoriesPage,
     AccountDetailsPage,
     TransactionDetailsPage
