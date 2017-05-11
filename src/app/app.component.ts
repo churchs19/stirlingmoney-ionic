@@ -3,13 +3,13 @@ import { Nav, Platform } from 'ionic-angular';
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { AccountsPage } from '../pages/accounts/accounts';
-// import { BudgetsPage } from '../pages/budgets/budgets';
-// import { GoalsPage } from '../pages/goals/goals';
-// import { CategoriesPage } from '../pages/categories/categories';
-// import { AccountDetailsPage } from '../pages/account-details/account-details';
-// import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
+import { AngularFireAuth } from 'angularfire2/auth';
+//import * as firebase from 'firebase/app';
 
+import { AuthenticationProvider } from '../providers/authentication/authentication';
+
+import { AccountsPage } from '../pages/accounts/accounts';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -17,18 +17,27 @@ import { AccountsPage } from '../pages/accounts/accounts';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = AccountsPage;
+  rootPage: any;
+  loggedIn: boolean = false;
 
-  pages: Array<{title: string, component: any, icon: string, color: string}>;
+  pages: Array<any>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, afAuth: AngularFireAuth, private authProvider: AuthenticationProvider) {
     this.initializeApp();
+
+    /*const authObserver = */afAuth.authState.subscribe( user => {
+      if (user) {
+        this.rootPage = AccountsPage;
+        this.loggedIn = true;
+      } else {
+        this.rootPage = LoginPage;
+        this.loggedIn = false;
+      }
+    });
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Accounts', component: AccountsPage, icon: 'book', color: 'primary' }//,
-      // { title: 'Budgets', component: BudgetsPage, icon: 'book', color: 'secondary' },
-      // { title: 'Goals', component: GoalsPage,  icon: 'book', color: 'danger' }
+      { title: 'Accounts', component: AccountsPage, icon: 'book', color: 'primary'}
     ];
 
   }
@@ -46,5 +55,14 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  logout() {
+    this.authProvider.logout();
+    window.location.reload(true);
+  }
+
+  login() {
+    this.openPage({component: LoginPage});
   }
 }

@@ -7,11 +7,21 @@
     </ion-header>
 
     <ion-content>
-      <ion-list>
+      <ion-list *ngIf="loggedIn">
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <i class="fa fa-{{p.icon}} {{p.color}}" aria-hidden="true"></i>
-        {{p.title}}
-      </button>
+          <i class="fa fa-{{p.icon}} {{p.color}}" aria-hidden="true"></i>
+          {{p.title}}
+        </button>
+        <button menu-close ion-item (click)="logout()">
+          <i class="fa fa-sign-out danger" aria-hidden="true"></i>
+          Logout
+        </button>
+      </ion-list>
+      <ion-list *ngIf="!loggedIn">
+        <button menu-close ion-item (click)="login()">
+          <i class="fa fa-sign-in success" aria-hidden="true"></i>
+          Login
+        </button>
       </ion-list>
     </ion-content>
 

@@ -14,7 +14,7 @@
 </ion-header>
 <ion-content padding>
   <ion-list>
-    <ion-item-sliding *ngFor="let a of accounts">
+    <ion-item-sliding *ngFor="let a of accounts | async">
       <ion-item (click)="accountDetails(a)">
       <ion-thumbnail item-left>
         <img src="assets/account-icons/Accounts-Book.png">

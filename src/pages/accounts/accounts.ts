@@ -9,6 +9,11 @@ import {
   List
 } from 'ionic-angular';
 import {
+  AngularFireDatabase,
+  FirebaseListObservable
+} from 'angularfire2/database';
+import { Account } from '../../model/account';
+import {
   AccountDetailsPage
 } from '../account-details/account-details';
 import {
@@ -27,35 +32,41 @@ import {
 })
 export class AccountsPage {
   @ViewChild(List) list: List;
-  accounts: Array < AccountSummary > ;
+  accounts: FirebaseListObservable<any>;
+//  accounts: Array<Account> ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
-    this.accounts = [{
-        id: '1',
-        name: 'Account 1',
-        availableBalance: 123.15,
-        postedBalance: 150.00
-      },
-      {
-        id: '2',
-        name: 'Account 2',
-        availableBalance: -123.15,
-        postedBalance: -150.00
-      },
-      {
-        id: '3',
-        name: 'Account 3',
-        availableBalance: 123.15,
-        postedBalance: 150.00
-      }
-    ]
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public actionSheetCtrl: ActionSheetController,
+              db: AngularFireDatabase) {
+    // this.accounts = [{
+    //     id: '1',
+    //     name: 'Account 1',
+    //     availableBalance: 123.15,
+    //     postedBalance: 150.00
+    //   },
+    //   {
+    //     id: '2',
+    //     name: 'Account 2',
+    //     availableBalance: -123.15,
+    //     postedBalance: -150.00
+    //   },
+    //   {
+    //     id: '3',
+    //     name: 'Account 3',
+    //     availableBalance: 123.15,
+    //     postedBalance: 150.00
+    //   }
+    // ]
+    this.accounts = db.list('/accounts');
+//    this.accounts.push(new Account('Test', 100, 100, 100));
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountsPage');
   }
 
-  accountDetails(account: AccountSummary) {
+  accountDetails(account: Account) {
     console.log(JSON.stringify(account));
     this.navCtrl.push(AccountDetailsPage);
   }
@@ -67,15 +78,14 @@ export class AccountsPage {
     })
   }
 
-  editAccount(account: AccountSummary) {
+  editAccount(account: Account) {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Edit'
     })
   }
 
-  deleteAccount(account: AccountSummary) {
-    console.log('in deleteAccount');
+  deleteAccount(account: Account) {
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Delete account?',
       buttons: [{
@@ -100,12 +110,4 @@ export class AccountsPage {
     actionSheet.present();
 
   }
-}
-
-interface AccountSummary {
-  id: string,
-    name: string,
-    availableBalance: number,
-    postedBalance: number,
-    icon ? : string
 }

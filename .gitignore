@@ -33,3 +33,4 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 fix-git-email.sh
+src/app/firebaseConfig.ts
