@@ -59,7 +59,7 @@ export class MyApp {
 
   logout() {
     this.authProvider.logout();
-    window.location.reload(true);
+//    window.location.reload(true);
   }
 
   login() {

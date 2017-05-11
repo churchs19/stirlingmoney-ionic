@@ -12,13 +12,13 @@
           <i class="fa fa-{{p.icon}} {{p.color}}" aria-hidden="true"></i>
           {{p.title}}
         </button>
-        <button menu-close ion-item (click)="logout()">
+        <button menuClose ion-item (click)="logout()">
           <i class="fa fa-sign-out danger" aria-hidden="true"></i>
-          Logout
+          <span class="danger">Logout</span>
         </button>
       </ion-list>
       <ion-list *ngIf="!loggedIn">
-        <button menu-close ion-item (click)="login()">
+        <button menuClose ion-item (click)="login()">
           <i class="fa fa-sign-in success" aria-hidden="true"></i>
           Login
         </button>
