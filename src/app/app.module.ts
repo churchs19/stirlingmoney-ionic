@@ -28,10 +28,10 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { AccountDetailsPage } from '../pages/account-details/account-details';
 import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
 
-
 //Providers
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { SettingsProvider } from '../providers/settings/settings';
+import { AccountsProvider } from '../providers/accounts/accounts';
 
 @NgModule({
   declarations: [
@@ -67,6 +67,7 @@ import { SettingsProvider } from '../providers/settings/settings';
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticationProvider,
-    SettingsProvider]
+    SettingsProvider,
+    AccountsProvider]
 })
 export class AppModule {}

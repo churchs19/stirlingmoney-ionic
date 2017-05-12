@@ -8,11 +8,7 @@ import {
   ActionSheetController,
   List
 } from 'ionic-angular';
-import {
-  AngularFireDatabase,
-  FirebaseListObservable
-} from 'angularfire2/database';
-import { Account } from '../../model/account';
+import { AccountsProvider } from '../../providers/accounts/accounts';
 import {
   AccountDetailsPage
 } from '../account-details/account-details';
@@ -32,41 +28,21 @@ import {
 })
 export class AccountsPage {
   @ViewChild(List) list: List;
-  accounts: FirebaseListObservable<any>;
+  accounts: any;
 //  accounts: Array<Account> ;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public actionSheetCtrl: ActionSheetController,
-              db: AngularFireDatabase) {
-    // this.accounts = [{
-    //     id: '1',
-    //     name: 'Account 1',
-    //     availableBalance: 123.15,
-    //     postedBalance: 150.00
-    //   },
-    //   {
-    //     id: '2',
-    //     name: 'Account 2',
-    //     availableBalance: -123.15,
-    //     postedBalance: -150.00
-    //   },
-    //   {
-    //     id: '3',
-    //     name: 'Account 3',
-    //     availableBalance: 123.15,
-    //     postedBalance: 150.00
-    //   }
-    // ]
-    this.accounts = db.list('/accounts');
-//    this.accounts.push(new Account('Test', 100, 100, 100));
+              private accountsProvider: AccountsProvider) {
+    this.accounts = this.accountsProvider.list();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountsPage');
   }
 
-  accountDetails(account: Account) {
+  accountDetails(account: any) {
     console.log(JSON.stringify(account));
     this.navCtrl.push(AccountDetailsPage);
   }
@@ -75,24 +51,27 @@ export class AccountsPage {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Add'
-    })
+    });
   }
 
-  editAccount(account: Account) {
+  editAccount(account: any) {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
-      mode: 'Edit'
-    })
+      mode: 'Edit',
+      accountId: account.$key
+    });
   }
 
-  deleteAccount(account: Account) {
+  deleteAccount(account: any) {
+    let _account = account;
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Delete account?',
       buttons: [{
           text: 'Delete',
           role: 'destructive',
           handler: () => {
-            console.log('Destructive clicked');
+            console.log(_account.$key);
+            this.accountsProvider.delete(_account.$key);
             this.list.closeSlidingItems();
           }
         },
@@ -100,7 +79,6 @@ export class AccountsPage {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
             this.list.closeSlidingItems();
           }
         }

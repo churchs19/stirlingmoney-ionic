@@ -15,8 +15,8 @@ export class AuthenticationProvider {
     constructor(public afAuth: AngularFireAuth) {
         afAuth.authState.subscribe( user => {
             if (user) {
-                this.fireAuth = user.getToken();
-                console.log(JSON.stringify(user));
+                this.fireAuth = user;
+//                console.log(JSON.stringify(user));
             }
         });
     }
