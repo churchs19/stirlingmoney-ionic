@@ -32,6 +32,7 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { SettingsProvider } from '../providers/settings/settings';
 import { AccountsProvider } from '../providers/accounts/accounts';
+import { TransactionProvider } from '../providers/transaction/transaction';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { AccountsProvider } from '../providers/accounts/accounts';
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticationProvider,
     SettingsProvider,
-    AccountsProvider]
+    AccountsProvider,
+    TransactionProvider]
 })
 export class AppModule {}

@@ -10,15 +10,22 @@ export enum AuthenticationType {
 @Injectable()
 export class AuthenticationProvider {
 
-    fireAuth: any;
+    private fireAuth: any;
 
     constructor(public afAuth: AngularFireAuth) {
         afAuth.authState.subscribe( user => {
             if (user) {
                 this.fireAuth = user;
-//                console.log(JSON.stringify(user));
+                console.log(JSON.stringify(user));
             }
         });
+    }
+
+    public uid() {
+      if(this.fireAuth) {
+        return this.fireAuth.uid;
+      }
+      return null;
     }
 
     public login(type: AuthenticationType = AuthenticationType.Google) {

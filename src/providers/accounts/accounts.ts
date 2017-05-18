@@ -8,7 +8,7 @@ import {
   FirebaseObjectObservable,
   FirebaseListObservable,
 } from 'angularfire2/database';
-import { Account } from '../../model/account';
+import { AuthenticationProvider } from '../authentication/authentication';
 
 /*
   Generated class for the AccountsProvider provider.
@@ -19,29 +19,30 @@ import { Account } from '../../model/account';
 @Injectable()
 export class AccountsProvider {
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase, private authProvider: AuthenticationProvider) {
 
   }
 
   public list(): FirebaseListObservable<any> {
-    return this.db.list('/accounts');
+    var list: FirebaseListObservable<any> = this.db.list('/accounts/' + this.authProvider.uid());
+    return list;
   }
 
   public get(id: string): FirebaseObjectObservable<any> {
-    return this.db.object('/accounts/' + id);
+    return this.db.object('/accounts/' + this.authProvider.uid() + '/' + id);
   }
 
   public delete(id: string) {
-    return this.db.object('/accounts/' + id).remove();
+    return this.db.object('/accounts/' + this.authProvider.uid() + '/' + id).remove();
   }
 
   public upsert(account: any): any {
     if(account.id) {
       var id = account.id;
       delete account.id;
-      return this.db.object('/accounts/' + id).update(account);
+      return this.db.object('/accounts/' + this.authProvider.uid() + '/' + id).update(account);
     } else {
-      return this.db.list('/accounts/').push(account);
+      return this.db.list('/accounts/'  + this.authProvider.uid() + '/').push(account);
     }
   }
 }
