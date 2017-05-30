@@ -32,7 +32,7 @@ import { TransactionDetailsPage } from '../pages/transaction-details/transaction
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { SettingsProvider } from '../providers/settings/settings';
 import { AccountsProvider } from '../providers/accounts/accounts';
-import { TransactionProvider } from '../providers/transaction/transaction';
+import { TransactionsProvider } from '../providers/transactions/transactions';
 
 @NgModule({
   declarations: [
@@ -70,6 +70,6 @@ import { TransactionProvider } from '../providers/transaction/transaction';
     AuthenticationProvider,
     SettingsProvider,
     AccountsProvider,
-    TransactionProvider]
+    TransactionsProvider]
 })
 export class AppModule {}

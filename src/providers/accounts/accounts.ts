@@ -24,7 +24,7 @@ export class AccountsProvider {
   }
 
   public list(): FirebaseListObservable<any> {
-    var list: FirebaseListObservable<any> = this.db.list('/accounts/' + this.authProvider.uid());
+    var list = this.db.list('/accounts/' + this.authProvider.uid());
     return list;
   }
 
