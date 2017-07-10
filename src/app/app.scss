@@ -14,6 +14,28 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+@font-face {
+font-family: 'Stirling Money';
+src:
+url('Fonts/Stirling Money.ttf') format('truetype'),
+url('Fonts/Stirling Money.woff') format('woff'),
+url('Fonts/Stirling Money.eot') format('eot'),
+url('Fonts/Stirling Money.svg?#Stirling Money') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+.sm {
+  font
+}
+
+.sf-icon-cheque-01 { content: "\e700"; }
+.sf-icon-account-payable { content: "\e701"; }
+.sf-icon-atm-01-wf { content: "\e702"; }
+.sf-icon-atm-01 { content: "\e703"; }
+.sf-icon-money-transfer { content: "\e704"; }
+
 .primary {
   color: color($colors, primary, base);
 }
