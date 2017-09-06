@@ -26,7 +26,6 @@ import { AccountsPage } from '../pages/accounts/accounts';
 import { AddEditAccountPage } from '../pages/add-edit-account/add-edit-account';
 import { CategoriesPage } from '../pages/categories/categories';
 import { AccountDetailsPage } from '../pages/account-details/account-details';
-import { TransactionDetailsPage } from '../pages/transaction-details/transaction-details';
 
 //Providers
 import { AuthenticationProvider } from '../providers/authentication/authentication';
@@ -43,7 +42,6 @@ import { TransactionsProvider } from '../providers/transactions/transactions';
     AddEditAccountPage,
     CategoriesPage,
     AccountDetailsPage,
-    TransactionDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +62,6 @@ import { TransactionsProvider } from '../providers/transactions/transactions';
     AddEditAccountPage,
     CategoriesPage,
     AccountDetailsPage,
-    TransactionDetailsPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthenticationProvider,

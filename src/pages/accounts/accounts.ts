@@ -44,7 +44,9 @@ export class AccountsPage {
 
   accountDetails(account: any) {
     console.log(JSON.stringify(account));
-    this.navCtrl.push(AccountDetailsPage);
+    this.navCtrl.push(AccountDetailsPage, {
+      accountId: account.$key
+    });
   }
 
   addAccount() {
@@ -69,6 +71,7 @@ export class AccountsPage {
       buttons: [{
           text: 'Delete',
           role: 'destructive',
+          icon: 'trash',
           handler: () => {
             console.log(_account.$key);
             this.accountsProvider.delete(_account.$key);
@@ -78,6 +81,7 @@ export class AccountsPage {
         {
           text: 'Cancel',
           role: 'cancel',
+          icon: 'close',
           handler: () => {
             this.list.closeSlidingItems();
           }

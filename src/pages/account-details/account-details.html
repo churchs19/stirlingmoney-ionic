@@ -23,23 +23,23 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item-group>
-      <ion-item-divider color="light">A</ion-item-divider>
-      <ion-item-sliding>
+    <ion-item-group *ngFor="let dateGroup of model.transactionDates">
+      <ion-item-divider color="light">{{ formatDate(dateGroup.transactionDate) }}</ion-item-divider>
+      <ion-item-sliding *ngFor="let transaction of dateGroup.transactions">
         <ion-item>
           <ion-label>
             <ion-grid no-padding>
               <ion-row>
                 <ion-col>
-                  Test transaction
+                  {{transaction.location}}
                 </ion-col>
-                <ion-col col-4>
-                  $10.30
+                <ion-col col-4 [ngClass]="{danger: transaction.amount < 0}">
+                  <span class="pull-right">{{transaction.amount | currency:'USD':true}}</span>
                 </ion-col>
               </ion-row>
               <ion-row>
                 <ion-col text-muted>
-                  This is a description
+                  {{transaction.description}}
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -53,7 +53,7 @@
           </button>
         </ion-item-options>
         <ion-item-options side="right">
-          <button ion-button color="danger">
+          <button ion-button color="danger" (click)="deleteTransaction(transaction)">
             <ion-icon name="trash"></ion-icon>
             Delete
           </button>
@@ -61,13 +61,13 @@
       </ion-item-sliding>
     </ion-item-group>
   </ion-list>
-  <ion-fab bottom right>
+  <ion-fab bottom right #fab>
     <button ion-fab><ion-icon name="add"></ion-icon></button>
     <ion-fab-list side="top">
-      <button ion-fab><ion-icon name="sm-withdraw"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
-      <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+      <button ion-fab (click)="withdraw(fab)"><i class="sm-icon-atm-01" aria-hidden="true"></i></button>
+      <button ion-fab><i class="sm-icon-cheque-01" aria-hidden="true"></i></button>
+      <button ion-fab><i class="sm-icon-money-transfer" aria-hidden="true"></i></button>
+      <button ion-fab><i class="sm-icon-accounts-receivable" aria-hidden="true"></i></button>
     </ion-fab-list>
   </ion-fab>
 </ion-content>
