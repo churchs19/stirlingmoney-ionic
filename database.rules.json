@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "accounts": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    },
+    "transactions": {
+      "$uid": {
+        ".read": "auth != null && auth.uid == $uid",
+        ".write": "auth != null && auth.uid == $uid"
+      }
+    }
+//     ".read": "auth!=null",
+//     ".write": "auth!=null"
+  }
+}

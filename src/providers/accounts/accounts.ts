@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 import { } from 'angularfire2';
 import {
   AngularFireDatabase,
-  FirebaseObjectObservable,
-  FirebaseListObservable,
+  AngularFireObject,
+  AngularFireList,
 } from 'angularfire2/database';
 import { AuthenticationProvider } from '../authentication/authentication';
 
@@ -23,13 +23,13 @@ export class AccountsProvider {
 
   }
 
-  public list(): FirebaseListObservable<any> {
-    var list = this.db.list('/accounts/' + this.authProvider.uid());
+  public list(): AngularFireList<Account> {
+    var list = this.db.list<Account>('/accounts/' + this.authProvider.uid());
     return list;
   }
 
-  public get(id: string): FirebaseObjectObservable<any> {
-    return this.db.object('/accounts/' + this.authProvider.uid() + '/' + id);
+  public get(id: string): AngularFireObject<Account> {
+    return this.db.object<Account>('/accounts/' + this.authProvider.uid() + '/' + id);
   }
 
   public delete(id: string) {
