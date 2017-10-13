@@ -11,6 +11,7 @@ import {
 } from 'ionic-angular';
 import * as Enumerable from 'linq';
 import * as moment from 'moment';
+import { Account } from '../../model/account';
 import {
   AccountDetailsModel
 } from './account-details-model';
@@ -62,12 +63,12 @@ export class AccountDetailsPage {
 
   private loadData() {
     if (this.model.accountId) {
-      this.accountsProvider.get(this.model.accountId).subscribe(it => {
+      this.accountsProvider.get(this.model.accountId).valueChanges<Account>().subscribe(it => {
         this.model.accountName = it.name;
         this.model.postedBalance = it.postedBalance;
         this.model.availableBalance = it.availableBalance;
       });
-      this.transactionsProvider.list(this.model.accountId).subscribe(it => {
+      this.transactionsProvider.list(this.model.accountId).valueChanges<any>().subscribe(it => {
         var transactionGroups = Enumerable.from<any>(it).groupBy(transaction => moment(transaction.date).format('YYYY-MM-DD'));
         this.model.transactionDates.splice(0, this.model.transactionDates.length);
         transactionGroups.forEach(it => {

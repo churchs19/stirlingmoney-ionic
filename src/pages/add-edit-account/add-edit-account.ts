@@ -5,6 +5,7 @@ import {
   NavController,
   NavParams
 } from 'ionic-angular';
+import { Account } from '../../model/account';
 import {
   AccountsProvider
 } from '../../providers/accounts/accounts';
@@ -44,7 +45,7 @@ export class AddEditAccountPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddEditAccountPage');
     if (this.model.accountId) {
-      this.accountsProvider.get(this.model.accountId).subscribe(it => {
+      this.accountsProvider.get(this.model.accountId).valueChanges<Account>().subscribe(it => {
         this.model.accountName = it.name;
         this.model.initialBalance = it.initialBalance;
       });
