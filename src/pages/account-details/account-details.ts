@@ -62,21 +62,21 @@ export class AccountDetailsPage {
   }
 
   private loadData() {
-    if (this.model.accountId) {
-      this.accountsProvider.get(this.model.accountId).valueChanges<Account>().subscribe(it => {
-        this.model.accountName = it.name;
-        this.model.postedBalance = it.postedBalance;
-        this.model.availableBalance = it.availableBalance;
-      });
-      this.transactionsProvider.list(this.model.accountId).valueChanges<any>().subscribe(it => {
-        var transactionGroups = Enumerable.from<any>(it).groupBy(transaction => moment(transaction.date).format('YYYY-MM-DD'));
-        this.model.transactionDates.splice(0, this.model.transactionDates.length);
-        transactionGroups.forEach(it => {
-          var transactions = it.select(it => new AccountTransactionModel(it.$key, it.date, it.location, it.amount, it.posted)).toArray();
-          this.model.transactionDates.push(new AccountTransactionDateModel(moment(it.key(), 'YYYY-MM-DD').toDate(), transactions));
-        });
-      });
-    }
+    // if (this.model.accountId) {
+    //   this.accountsProvider.get(this.model.accountId).valueChanges<Account>().subscribe(it => {
+    //     this.model.accountName = it.name;
+    //     this.model.postedBalance = it.postedBalance;
+    //     this.model.availableBalance = it.availableBalance;
+    //   });
+    //   this.transactionsProvider.list(this.model.accountId).valueChanges<any>().subscribe(it => {
+    //     var transactionGroups = Enumerable.from<any>(it).groupBy(transaction => moment(transaction.date).format('YYYY-MM-DD'));
+    //     this.model.transactionDates.splice(0, this.model.transactionDates.length);
+    //     transactionGroups.forEach(it => {
+    //       var transactions = it.select(it => new AccountTransactionModel(it.$key, it.date, it.location, it.amount, it.posted)).toArray();
+    //       this.model.transactionDates.push(new AccountTransactionDateModel(moment(it.key(), 'YYYY-MM-DD').toDate(), transactions));
+    //     });
+    //   });
+    // }
   }
 
   filterList() {
@@ -86,12 +86,12 @@ export class AccountDetailsPage {
   withdraw(fab: FabContainer) {
     console.log('Withdraw clicked');
     fab.close();
-    this.transactionsProvider.upsert(this.model.accountId, {
-      date: moment().toDate(),
-      location: 'Test Transaction',
-      amount: -20,
-      posted: false
-    });
+    // this.transactionsProvider.upsert(this.model.accountId, {
+    //   date: moment().toDate(),
+    //   location: 'Test Transaction',
+    //   amount: -20,
+    //   posted: false
+    // });
   }
 
   deleteTransaction(transaction: AccountTransactionModel) {
@@ -103,11 +103,11 @@ export class AccountDetailsPage {
           role: 'destructive',
           icon: 'trash',
           handler: () => {
-            console.log(transaction.transactionId);
-            this.transactionsProvider.delete(this.model.accountId, _transaction.transactionId).then(() => {
-              this.loadData();
-            });
-            this.list.closeSlidingItems();
+            // console.log(transaction.transactionId);
+            // this.transactionsProvider.delete(this.model.accountId, _transaction.transactionId).then(() => {
+            //   this.loadData();
+            // });
+            // this.list.closeSlidingItems();
           }
         },
         {

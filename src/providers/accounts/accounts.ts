@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import 'rxjs';
-import 'rxjs/add/operator/map';
 
-import { } from 'angularfire2';
-import {
-  AngularFireDatabase,
-  AngularFireObject,
-  AngularFireList,
-} from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+
 import { AuthenticationProvider } from '../authentication/authentication';
+import { Account } from '../../model/account';
 
 /*
   Generated class for the AccountsProvider provider.
@@ -19,30 +15,40 @@ import { AuthenticationProvider } from '../authentication/authentication';
 @Injectable()
 export class AccountsProvider {
 
-  constructor(private db: AngularFireDatabase, private authProvider: AuthenticationProvider) {
+  constructor(private db: AngularFirestore, private authProvider: AuthenticationProvider) {
 
   }
 
-  public list(): AngularFireList<Account> {
-    var list = this.db.list<Account>('/accounts/' + this.authProvider.uid());
-    return list;
+  public list(): Observable<Account[]> {
+    var list = this.db.collection<Account>('/users/' + this.authProvider.uid() + '/accounts');
+    return list.valueChanges();
   }
 
-  public get(id: string): AngularFireObject<Account> {
-    return this.db.object<Account>('/accounts/' + this.authProvider.uid() + '/' + id);
+  public get(id: string): Observable<Account> {
+    return this.db.doc<Account>('/users/' + this.authProvider.uid() + '/accounts' + '/' + id)
+      .valueChanges();
   }
 
-  public delete(id: string) {
-    return this.db.object('/accounts/' + this.authProvider.uid() + '/' + id).remove();
+  public delete(id: string): Promise<void> {
+    return this.db.doc<Account>('/users/' + this.authProvider.uid() + '/accounts' + '/' + id)
+      .delete();
   }
 
-  public upsert(account: any): any {
-    if(account.id) {
-      var id = account.id;
-      delete account.id;
-      return this.db.object('/accounts/' + this.authProvider.uid() + '/' + id).update(account);
+  public upsert(item: Account): Promise<Account> {
+    if(!item.id) {
+      const id = this.db.createId();
+      item.id = id;
+      return this.db.collection<Account>('/users/' + this.authProvider.uid() + '/accounts')
+        .add(item)
+        .then(() => {
+          return item;
+        });
     } else {
-      return this.db.list('/accounts/'  + this.authProvider.uid() + '/').push(account);
+      return this.db.doc<Account>('/users/' + this.authProvider.uid() + '/accounts/' + item.id)
+        .update(item)
+        .then(() => {
+          return item;
+        });
     }
   }
 }

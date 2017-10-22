@@ -45,7 +45,7 @@ export class AccountsPage {
   accountDetails(account: any) {
     console.log(JSON.stringify(account));
     this.navCtrl.push(AccountDetailsPage, {
-      accountId: account.$key
+      account: account
     });
   }
 
@@ -56,11 +56,11 @@ export class AccountsPage {
     });
   }
 
-  editAccount(account: any) {
+  editAccount(account: Account) {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Edit',
-      accountId: account.$key
+      account: account
     });
   }
 

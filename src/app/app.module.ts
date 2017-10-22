@@ -11,7 +11,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 //AngularFire 2
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 // Firebase Settings
 import { FirebaseConfig } from './firebaseConfig';
@@ -51,7 +51,7 @@ import { TransactionsProvider } from '../providers/transactions/transactions';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireAuthModule,
-    AngularFireDatabaseModule
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

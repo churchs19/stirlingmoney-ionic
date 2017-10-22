@@ -1,20 +1,8 @@
-import {
-  Component
-} from '@angular/core';
-import {
-  NavController,
-  NavParams
-} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { Account } from '../../model/account';
-import {
-  AccountsProvider
-} from '../../providers/accounts/accounts';
-import {
-  TransactionsProvider
-} from '../../providers/transactions/transactions';
-import {
-  AddEditAccountModel
-} from './add-edit-account-model';
+import { AccountsProvider } from '../../providers/accounts/accounts';
+import { AddEditAccountModel } from './add-edit-account-model';
 
 /*
   Generated class for the AddEditAccount page.
@@ -28,45 +16,26 @@ import {
 })
 export class AddEditAccountPage {
   mode: string = "Add";
-  model: AddEditAccountModel = new AddEditAccountModel('', 0);
+  account: Account = new Account('');
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private accountsProvider: AccountsProvider,
-    private transactionsProvider: TransactionsProvider) {
+    private accountsProvider: AccountsProvider) {
     if (navParams.get('mode')) {
       this.mode = navParams.get('mode');
     }
-    if (navParams.get('accountId')) {
-      this.model.accountId = navParams.get('accountId');
+    if (navParams.get('account')) {
+      this.account = <Account>navParams.get('account');
     }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddEditAccountPage');
-    if (this.model.accountId) {
-      this.accountsProvider.get(this.model.accountId).valueChanges<Account>().subscribe(it => {
-        this.model.accountName = it.name;
-        this.model.initialBalance = it.initialBalance;
-      });
-    }
   }
 
   onSubmit() {
-    var account = {
-      name: this.model.accountName,
-      initialBalance: this.model.initialBalance
-    };
-    if (this.model.accountId) {
-      account['id'] = this.model.accountId;
-    } else {
-      account['availableBalance'] = this.model.initialBalance;
-      account['postedBalance'] = this.model.initialBalance;
-    }
-    this.accountsProvider.upsert(account).then((result) => {
-      this.transactionsProvider.upsert(result.id, account).then(() => {;
-        this.navCtrl.pop();
-      });
+    this.accountsProvider.upsert(this.account).then((result) => {
+      this.navCtrl.pop();
     });
   }
 }

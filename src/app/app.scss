@@ -92,6 +92,24 @@ ion-menu .menu-inner .content .item {
   background-color: color($colors, secondary, base)!important;
 }
 
+ion-menu .menu-inner .menu-header {
+  color: color($colors, light, base);
+  background-color: lighten(color($colors, secondary, base), 20%);
+  padding: 10px;
+
+  img {
+    border-radius: 50%;
+    max-height: 100px;
+    max-width: 100px;
+    border: 2px solid color($colors, light, base);
+  }
+
+  h4 {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+  }
+}
+
 ion-item.ng-invalid.ng-touched .item-inner {
   border-bottom: 2px solid color($colors, danger, base) !important;
 }

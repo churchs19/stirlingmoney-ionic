@@ -19,6 +19,8 @@ export class MyApp {
 
   rootPage: any;
   loggedIn: boolean = false;
+  displayName: string;
+  photoURL: string;
 
   pages: Array<any>;
 
@@ -28,6 +30,8 @@ export class MyApp {
     /*const authObserver = */afAuth.authState.subscribe( user => {
       if (user) {
         this.rootPage = AccountsPage;
+        this.displayName = user.displayName;
+        this.photoURL = user.photoURL;
         this.loggedIn = true;
       } else {
         this.rootPage = LoginPage;

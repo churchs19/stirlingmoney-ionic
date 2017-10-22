@@ -1,10 +1,11 @@
 export class Account
 {
-  constructor(public $key: string = '',
-              public name: string,
-              public initialBalance: number,
-              public availableBalance: number,
-              public postedBalance: number,
-              public icon: string = '') {
-  }
+  constructor(
+    public name: string,
+    public initialBalance: number = 0,
+    public availableBalance: number = 0,
+    public postedBalance: number = 0,
+    public icon: string = '',
+    public id?: string
+  ) {}
 }

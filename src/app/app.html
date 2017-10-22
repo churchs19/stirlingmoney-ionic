@@ -7,22 +7,28 @@
     </ion-header>
 
     <ion-content>
-      <ion-list *ngIf="loggedIn">
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          <i class="fa fa-{{p.icon}} {{p.color}}" aria-hidden="true"></i>
-          {{p.title}}
-        </button>
-        <button menuClose ion-item (click)="logout()">
-          <i class="fa fa-sign-out danger" aria-hidden="true"></i>
-          <span class="danger">Logout</span>
-        </button>
-      </ion-list>
-      <ion-list *ngIf="!loggedIn">
-        <button menuClose ion-item (click)="login()">
-          <i class="fa fa-sign-in success" aria-hidden="true"></i>
-          Login
-        </button>
-      </ion-list>
+      <div *ngIf="loggedIn">
+        <div class="menu-header" text-center>
+            <img src="{{photoURL}}" alt="{{displayName}}"/>
+            <h4>{{displayName}}</h4>
+        </div>
+        <ion-list *ngIf="loggedIn">
+          <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+            <i class="fa fa-{{p.icon}} {{p.color}}" aria-hidden="true"></i>
+            {{p.title}}
+          </button>
+          <button menuClose ion-item (click)="logout()">
+            <i class="fa fa-sign-out danger" aria-hidden="true"></i>
+            <span class="danger">Logout</span>
+          </button>
+        </ion-list>
+        <ion-list *ngIf="!loggedIn">
+          <button menuClose ion-item (click)="login()">
+            <i class="fa fa-sign-in success" aria-hidden="true"></i>
+            Login
+          </button>
+        </ion-list>
+      </div>
     </ion-content>
 
   </ion-menu>

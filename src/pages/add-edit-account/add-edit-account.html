@@ -14,12 +14,12 @@
     <ion-list>
       <ion-item>
         <ion-label stacked for="accountName">Account Name</ion-label>
-        <ion-input type="text" id="accountName" name="accountName" required [(ngModel)]="model.accountName" #accountName="ngModel"></ion-input>
+        <ion-input type="text" id="accountName" name="accountName" required [(ngModel)]="account.name" #accountName="ngModel"></ion-input>
       </ion-item>
       <div *ngIf="accountName.invalid && accountName.touched" class="error-box">Account name is required</div>
       <ion-item>
         <ion-label stacked for="initialBalance">Initial Balance</ion-label>
-        <ion-input type="number" id="initialBalance" name="initialBalance" required [(ngModel)]="model.initialBalance" #initialBalance="ngModel"></ion-input>
+        <ion-input type="number" id="initialBalance" name="initialBalance" required [(ngModel)]="account.initialBalance" #initialBalance="ngModel"></ion-input>
         <div *ngIf="initialBalance.invalid && initialBalance.touched" class="error-box">Initial Balance is required</div>
       </ion-item>
     </ion-list>
