@@ -1,8 +1,7 @@
 import { IUserGroupMember } from './user-group-member';
 
-export class User implements IUserGroupMember {
-  constructor(
-    public uid: string,
-    public email: string
-  ) {}
+export interface User extends IUserGroupMember {
+  uid: string,
+  email: string,
+  userGroup?: string
 }

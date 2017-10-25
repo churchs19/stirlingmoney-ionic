@@ -4,7 +4,8 @@ import { Observable } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 import { AuthenticationProvider } from '../authentication/authentication';
-import { Account } from '../../model/account';
+import { IAccount } from '../../model/account';
+import { IUserGroup } from '../../model/user-group';
 
 /*
   Generated class for the AccountsProvider provider.
@@ -19,32 +20,34 @@ export class AccountsProvider {
 
   }
 
-  public list(): Observable<Account[]> {
-    var list = this.db.collection<Account>('/accounts');
+  public list(): Observable<IAccount[]> {
+    var list = this.db.collection<IAccount>(`/user-groups/${this.authProvider.userGroup}/Accounts`);
     return list.valueChanges();
   }
 
-  public get(id: string): Observable<Account> {
-    return this.db.doc<Account>('/accounts/' + id)
+  public get(id: string): Observable<IAccount> {
+    return this.db.doc<IAccount>(`/user-groups/${this.authProvider.userGroup}/accounts${id}`)
       .valueChanges();
   }
 
   public delete(id: string): Promise<void> {
-    return this.db.doc<Account>('/accounts/' + id)
+    return this.db.doc<IAccount>(`/user-groups/${this.authProvider.userGroup}/accounts/${id}`)
       .delete();
   }
 
-  public upsert(item: Account): Promise<Account> {
+  public upsert(item: IAccount): Promise<IAccount> {
     if(!item.id) {
       const id = this.db.createId();
       item.id = id;
-      return this.db.collection<Account>('/accounts')
-        .add(item)
+      return this.db.doc<IUserGroup>(`/user-groups/${this.authProvider.userGroup}`)
+        .collection(`/accounts`)
+        .doc(`${item.id}`)
+        .set(item)
         .then(() => {
           return item;
         });
     } else {
-      return this.db.doc<Account>('/accounts/' + item.id)
+      return this.db.doc<IAccount>(`/user-groups/${this.authProvider.userGroup}/accounts/${item.id}`)
         .update(item)
         .then(() => {
           return item;

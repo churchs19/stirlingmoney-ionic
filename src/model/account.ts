@@ -1,12 +1,9 @@
-export class Account
+export interface IAccount
 {
-  constructor(
-    public name: string,
-    public userGroupId: string,
-    public initialBalance: number = 0,
-    public availableBalance: number = 0,
-    public postedBalance: number = 0,
-    public icon: string = '',
-    public id?: string
-  ) {}
+  name: string;
+  initialBalance: number;
+  availableBalance: number;
+  postedBalance: number;
+  icon?: string;
+  id?: string;
 }

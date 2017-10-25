@@ -2,12 +2,14 @@ import {
   Component,
   ViewChild
 } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
   NavController,
   NavParams,
   ActionSheetController,
   List
 } from 'ionic-angular';
+import { IAccount } from '../../model/account';
 import { AccountsProvider } from '../../providers/accounts/accounts';
 import {
   AccountDetailsPage
@@ -28,8 +30,7 @@ import {
 })
 export class AccountsPage {
   @ViewChild(List) list: List;
-  accounts: any;
-//  accounts: Array<Account> ;
+  accounts: Observable<IAccount[]>;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,

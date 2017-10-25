@@ -1,11 +1,6 @@
 import { IUserGroupMember } from './user-group-member';
 
-export class UserGroup {
-  public id: string;
-  public members: IUserGroupMember[];
-  constructor(
-  ) {
-    this.members = [];
-  }
-
+export interface IUserGroup {
+  id: string;
+  members: IUserGroupMember[];
 }

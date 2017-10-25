@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Account } from '../../model/account';
+import { IAccount } from '../../model/account';
 import { AccountsProvider } from '../../providers/accounts/accounts';
+import { AuthenticationProvider } from '../../providers/authentication/authentication';
 import { AddEditAccountModel } from './add-edit-account-model';
 
 /*
@@ -16,16 +17,25 @@ import { AddEditAccountModel } from './add-edit-account-model';
 })
 export class AddEditAccountPage {
   mode: string = "Add";
-  account: Account;
+  account: IAccount;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private accountsProvider: AccountsProvider) {
+    private accountsProvider: AccountsProvider,
+    private authProvider: AuthenticationProvider
+  ) {
     if (navParams.get('mode')) {
       this.mode = navParams.get('mode');
     }
     if (navParams.get('account')) {
-      this.account = <Account>navParams.get('account');
+      this.account = <IAccount>navParams.get('account');
+    } else {
+      this.account = {
+        name: '',
+        initialBalance: 0,
+        postedBalance: 0,
+        availableBalance: 0
+      };
     }
   }
 

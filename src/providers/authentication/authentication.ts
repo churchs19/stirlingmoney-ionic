@@ -35,27 +35,36 @@ export class AuthenticationProvider {
     afAuth.authState.subscribe(user => {
       if (user) {
         this.fireAuth = user;
-        const userDocRef = this.db.doc<User>('users/' + user.uid).ref;
-        userDocRef.set({
-          uid: user.uid,
-          email: user.email
-        }, {
-          merge: true
-        }).then(() => {
-          //get user groups for user
-
-          //if no groups, create group
-          const userGroup = new UserGroup();
-          userGroup.members.push({ uid: user.uid, email: user.email});
-          this.userGroupProvider.insert(userGroup).then((insertedGroup) => {
-            userDocRef.set({
-              userGroup: insertedGroup.id
+        const userDoc = this.db.doc<User>('users/' + user.uid);
+        userDoc.valueChanges().subscribe(value => {
+          if(!value) {
+            userDoc.ref.set({
+              uid: user.uid,
+              email: user.email
             }, {
               merge: true
             });
-          });
+          } else {
+            if(!value.userGroup) {
+              this.createUserGroup(userDoc.ref);
+            } else {
+              this._userGroup = value.userGroup;
+            }
+          }
         });
       }
+    });
+  }
+
+  private createUserGroup(userDocRef: firebase.firestore.DocumentReference) {
+    const userGroup = new UserGroup();
+    userGroup.members.push({ uid: this.uid(), email: this.email()});
+    this.userGroupProvider.insert(userGroup).then((insertedGroup) => {
+      userDocRef.set({
+        userGroup: insertedGroup.id
+      }, {
+        merge: true
+      });
     });
   }
 
