@@ -1,10 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-// import { StatusBar } from '@ionic-native/status-bar';
-// import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireAuth } from 'angularfire2/auth';
-//import * as firebase from 'firebase/app';
 
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 
@@ -27,7 +24,7 @@ export class MyApp {
   constructor(public platform: Platform, afAuth: AngularFireAuth, private authProvider: AuthenticationProvider) {
     this.initializeApp();
 
-    /*const authObserver = */afAuth.authState.subscribe( user => {
+    afAuth.authState.subscribe( user => {
       if (user) {
         this.rootPage = AccountsPage;
         this.displayName = user.displayName;

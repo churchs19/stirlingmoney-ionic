@@ -19,14 +19,9 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
   }
 
   loginUserGoogle() {
     this.authProvider.login(AuthenticationType.Google);
-  }
-
-  loginUserTwitter() {
-    this.authProvider.login(AuthenticationType.Twitter);
   }
 }

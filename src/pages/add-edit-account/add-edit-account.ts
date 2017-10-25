@@ -16,7 +16,7 @@ import { AddEditAccountModel } from './add-edit-account-model';
 })
 export class AddEditAccountPage {
   mode: string = "Add";
-  account: Account = new Account('');
+  account: Account;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,

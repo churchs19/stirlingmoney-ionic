@@ -25,7 +25,7 @@
     "angular2-uuid": "1.1.1",
     "angularfire2": "5.0.0-rc.3",
     "firebase": "4.6.0",
-    "firebase-admin": "5.4.2",
+    "firebase-admin": "5.4.3",
     "firebase-functions": "0.7.1",
     "font-awesome": "^4.7.0",
     "ionic-angular": "^3.7.1",
@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "3.0.1",
-    "ionic": "3.13.2",
+    "ionic": "3.14.0",
     "typescript": "2.3.2"
   },
   "description": "Stirling Money",

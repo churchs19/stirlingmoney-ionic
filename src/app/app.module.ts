@@ -32,6 +32,7 @@ import { AuthenticationProvider } from '../providers/authentication/authenticati
 import { SettingsProvider } from '../providers/settings/settings';
 import { AccountsProvider } from '../providers/accounts/accounts';
 import { TransactionsProvider } from '../providers/transactions/transactions';
+import { UserGroupProvider } from '../providers/user-group/user-group';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { TransactionsProvider } from '../providers/transactions/transactions';
     AuthenticationProvider,
     SettingsProvider,
     AccountsProvider,
-    TransactionsProvider]
+    TransactionsProvider,
+    UserGroupProvider]
 })
 export class AppModule {}

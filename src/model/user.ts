@@ -1,5 +1,8 @@
-export class User {
+import { IUserGroupMember } from './user-group-member';
+
+export class User implements IUserGroupMember {
   constructor(
-    uid: string
+    public uid: string,
+    public email: string
   ) {}
 }

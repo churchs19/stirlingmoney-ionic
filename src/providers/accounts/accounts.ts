@@ -20,17 +20,17 @@ export class AccountsProvider {
   }
 
   public list(): Observable<Account[]> {
-    var list = this.db.collection<Account>('/users/' + this.authProvider.uid() + '/accounts');
+    var list = this.db.collection<Account>('/accounts');
     return list.valueChanges();
   }
 
   public get(id: string): Observable<Account> {
-    return this.db.doc<Account>('/users/' + this.authProvider.uid() + '/accounts' + '/' + id)
+    return this.db.doc<Account>('/accounts/' + id)
       .valueChanges();
   }
 
   public delete(id: string): Promise<void> {
-    return this.db.doc<Account>('/users/' + this.authProvider.uid() + '/accounts' + '/' + id)
+    return this.db.doc<Account>('/accounts/' + id)
       .delete();
   }
 
@@ -38,13 +38,13 @@ export class AccountsProvider {
     if(!item.id) {
       const id = this.db.createId();
       item.id = id;
-      return this.db.collection<Account>('/users/' + this.authProvider.uid() + '/accounts')
+      return this.db.collection<Account>('/accounts')
         .add(item)
         .then(() => {
           return item;
         });
     } else {
-      return this.db.doc<Account>('/users/' + this.authProvider.uid() + '/accounts/' + item.id)
+      return this.db.doc<Account>('/accounts/' + item.id)
         .update(item)
         .then(() => {
           return item;
