@@ -5,8 +5,8 @@ import 'rxjs/add/operator/map';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 import { AuthenticationProvider } from '../authentication/authentication';
-import { UserGroup } from '../../model/user-group';
-import { User } from '../../model/user';
+import { IUserGroup } from '../../model/user-group';
+import { IUser } from '../../model/user';
 
 /*
   Generated class for the UserGroupProvider provider.
@@ -20,17 +20,15 @@ export class UserGroupProvider {
   constructor(private db: AngularFirestore) {
   }
 
-  public getUserGroups(user: User): string[] {
-    this.db.collection<UserGroup>('/user-groups');
+  public getUserGroups(user: IUser): string[] {
+    this.db.collection<IUserGroup>('/user-groups');
     return [];
   }
 
-  public insert(userGroup: UserGroup): Promise<UserGroup> {
+  public insert(userGroup: IUserGroup): Promise<IUserGroup> {
     userGroup.id = this.db.createId();
-    return this.db.doc<UserGroup>('user-groups/' + userGroup.id).ref.set({
-      id: userGroup.id,
-      members: userGroup.members
-    }, {
+    return this.db.doc<IUserGroup>('user-groups/' + userGroup.id).ref.set(
+      userGroup, {
       merge: true
     }).then(() => {
       return userGroup;

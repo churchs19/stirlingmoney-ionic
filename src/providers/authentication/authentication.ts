@@ -11,8 +11,8 @@ import {
 import * as firebase from 'firebase/app';
 
 import { UserGroupProvider } from '../user-group/user-group';
-import { User } from '../../model/user';
-import { UserGroup } from '../../model/user-group';
+import { IUser } from '../../model/user';
+import { IUserGroup } from '../../model/user-group';
 
 export enum AuthenticationType {
   Google,
@@ -23,7 +23,7 @@ export enum AuthenticationType {
 export class AuthenticationProvider {
 
   private fireAuth: firebase.User;
-  private usersCollection: AngularFirestoreCollection<User>;
+  private usersCollection: AngularFirestoreCollection<IUser>;
   private _userGroup: string;
 
   constructor(
@@ -31,11 +31,11 @@ export class AuthenticationProvider {
     public db: AngularFirestore,
     public userGroupProvider: UserGroupProvider
   ) {
-    this.usersCollection = this.db.collection<User>('users');
+    this.usersCollection = this.db.collection<IUser>('users');
     afAuth.authState.subscribe(user => {
       if (user) {
         this.fireAuth = user;
-        const userDoc = this.db.doc<User>('users/' + user.uid);
+        const userDoc = this.db.doc<IUser>('users/' + user.uid);
         userDoc.valueChanges().subscribe(value => {
           if(!value) {
             userDoc.ref.set({
@@ -57,7 +57,7 @@ export class AuthenticationProvider {
   }
 
   private createUserGroup(userDocRef: firebase.firestore.DocumentReference) {
-    const userGroup = new UserGroup();
+    const userGroup: IUserGroup = { members: [] }
     userGroup.members.push({ uid: this.uid(), email: this.email()});
     this.userGroupProvider.insert(userGroup).then((insertedGroup) => {
       userDocRef.set({

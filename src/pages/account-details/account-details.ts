@@ -11,7 +11,7 @@ import {
 } from 'ionic-angular';
 import * as Enumerable from 'linq';
 import * as moment from 'moment';
-import { Account } from '../../model/account';
+import { IAccount } from '../../model/account';
 import {
   AccountDetailsModel
 } from './account-details-model';

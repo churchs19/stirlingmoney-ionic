@@ -19,30 +19,4 @@ import { AuthenticationProvider } from '../authentication/authentication';
 @Injectable()
 export class TransactionsProvider {
 
-  constructor(private db: AngularFireDatabase, private authProvider: AuthenticationProvider) {
-
-  }
-
-  public list(accountId: string): AngularFireList<any> {
-    var list: AngularFireList<any> = this.db.list<any>('/transactions/' + this.authProvider.uid() + '/' + accountId);
-    return list;
-  }
-
-  public get(accountId: string, id: string): AngularFireObject<any> {
-    return this.db.object<any>('/transactions/' + this.authProvider.uid() + '/' + accountId + '/' + id);
-  }
-
-  public delete(accountId: string, id: string) {
-    return this.db.object('/transactions/' + this.authProvider.uid() + '/' + accountId + '/' + id).remove();
-  }
-
-  public upsert(accountId: string, transaction: any): any {
-    if(transaction.id) {
-      var id = transaction.id;
-      delete transaction.id;
-      return this.db.object('/transactions/' + this.authProvider.uid() + '/' + accountId +  '/' + id).update(transaction);
-    } else {
-      return this.db.list('/transactions/'  + this.authProvider.uid() + '/' + accountId + '/').push(transaction);
-    }
-  }
 }
