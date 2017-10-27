@@ -1,12 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
-
 import { AngularFireAuth } from 'angularfire2/auth';
-
-import { AuthenticationProvider } from '../providers/authentication/authentication';
+import { Nav, Platform } from 'ionic-angular';
 
 import { AccountsPage } from '../pages/accounts/accounts';
 import { LoginPage } from '../pages/login/login';
+import { AuthenticationProvider } from '../providers/authentication/authentication';
 
 @Component({
   templateUrl: 'app.html'

@@ -1,22 +1,11 @@
-import {
-  Component,
-  ViewChild
-} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ActionSheetController, List, NavController, NavParams } from 'ionic-angular';
 import { Observable } from 'rxjs';
-import {
-  NavController,
-  NavParams,
-  ActionSheetController,
-  List
-} from 'ionic-angular';
+
 import { IAccount } from '../../model/account';
 import { AccountsProvider } from '../../providers/accounts/accounts';
-import {
-  AccountDetailsPage
-} from '../account-details/account-details';
-import {
-  AddEditAccountPage
-} from '../add-edit-account/add-edit-account';
+import { AccountDetailsPage } from '../account-details/account-details';
+import { AddEditAccountPage } from '../add-edit-account/add-edit-account';
 
 /*
   Generated class for the Accounts page.
@@ -37,13 +26,17 @@ export class AccountsPage {
               public actionSheetCtrl: ActionSheetController,
               private accountsProvider: AccountsProvider) {
     this.accounts = this.accountsProvider.list();
+
+    this.accounts.subscribe(item => {
+      console.log(JSON.stringify(item));
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountsPage');
   }
 
-  accountDetails(account: any) {
+  accountDetails(account: IAccount) {
     console.log(JSON.stringify(account));
     this.navCtrl.push(AccountDetailsPage, {
       account: account
@@ -57,7 +50,7 @@ export class AccountsPage {
     });
   }
 
-  editAccount(account: Account) {
+  editAccount(account: IAccount) {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Edit',
@@ -65,7 +58,7 @@ export class AccountsPage {
     });
   }
 
-  deleteAccount(account: any) {
+  deleteAccount(account: IAccount) {
     let _account = account;
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Delete account?',
@@ -74,8 +67,8 @@ export class AccountsPage {
           role: 'destructive',
           icon: 'trash',
           handler: () => {
-            console.log(_account.$key);
-            this.accountsProvider.delete(_account.$key);
+            console.log(_account.id);
+            this.accountsProvider.delete(_account.id);
             this.list.closeSlidingItems();
           }
         },

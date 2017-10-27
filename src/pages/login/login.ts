@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { AuthenticationProvider, AuthenticationType } from '../../providers/authentication/authentication'
+import { AuthenticationProvider, AuthenticationType } from '../../providers/authentication/authentication';
+
 /**
  * Generated class for the LoginPage page.
  *

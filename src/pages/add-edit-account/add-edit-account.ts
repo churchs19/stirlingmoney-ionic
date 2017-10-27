@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+
 import { IAccount } from '../../model/account';
 import { AccountsProvider } from '../../providers/accounts/accounts';
 import { AuthenticationProvider } from '../../providers/authentication/authentication';
-import { AddEditAccountModel } from './add-edit-account-model';
 
 /*
   Generated class for the AddEditAccount page.

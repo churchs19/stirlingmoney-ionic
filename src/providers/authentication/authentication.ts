@@ -1,18 +1,11 @@
-import {
-  Injectable
-} from '@angular/core';
-import {
-  AngularFireAuth
-} from 'angularfire2/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection
-} from 'angularfire2/firestore';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 
-import { UserGroupProvider } from '../user-group/user-group';
 import { IUser } from '../../model/user';
 import { IUserGroup } from '../../model/user-group';
+import { UserGroupProvider } from '../user-group/user-group';
 
 export enum AuthenticationType {
   Google,
@@ -46,7 +39,7 @@ export class AuthenticationProvider {
             });
           } else {
             if(!value.userGroup) {
-              this.createUserGroup(userDoc.ref);
+              this.createUserGroup(userDoc.ref).then(id => this._userGroup = id);
             } else {
               this._userGroup = value.userGroup;
             }
@@ -56,14 +49,16 @@ export class AuthenticationProvider {
     });
   }
 
-  private createUserGroup(userDocRef: firebase.firestore.DocumentReference) {
+  private createUserGroup(userDocRef: firebase.firestore.DocumentReference): Promise<string> {
     const userGroup: IUserGroup = { members: [] }
     userGroup.members.push({ uid: this.uid(), email: this.email()});
-    this.userGroupProvider.insert(userGroup).then((insertedGroup) => {
-      userDocRef.set({
+    return this.userGroupProvider.insert(userGroup).then((insertedGroup) => {
+      return userDocRef.set({
         userGroup: insertedGroup.id
       }, {
         merge: true
+      }).then(() => {
+        return insertedGroup.id;
       });
     });
   }
@@ -97,6 +92,7 @@ export class AuthenticationProvider {
   }
 
   public userGroup(): string {
+    console.log(this._userGroup);
     return this._userGroup;
   }
 

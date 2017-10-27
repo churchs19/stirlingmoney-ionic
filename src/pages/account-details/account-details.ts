@@ -1,33 +1,10 @@
-import {
-  Component,
-  ViewChild
-} from '@angular/core';
-import {
-  NavController,
-  NavParams,
-  List,
-  ActionSheetController,
-  FabContainer
-} from 'ionic-angular';
-import * as Enumerable from 'linq';
+import { Component, ViewChild } from '@angular/core';
+import { ActionSheetController, FabContainer, List, NavController, NavParams } from 'ionic-angular';
 import * as moment from 'moment';
-import { IAccount } from '../../model/account';
-import {
-  AccountDetailsModel
-} from './account-details-model';
-import {
-  AccountTransactionDateModel
-} from './account-transaction-date-model';
-import {
-  AccountTransactionModel
-} from './account-transaction-model';
-import {
-  AccountsProvider
-} from '../../providers/accounts/accounts';
-import {
-  TransactionsProvider
-} from '../../providers/transactions/transactions';
 
+import { AccountsProvider } from '../../providers/accounts/accounts';
+import { AccountDetailsModel } from './account-details-model';
+import { AccountTransactionModel } from './account-transaction-model';
 
 /*
   Generated class for the AccountDetails page.
@@ -47,8 +24,7 @@ export class AccountDetailsPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public actionSheetCtrl: ActionSheetController,
-    private accountsProvider: AccountsProvider,
-    private transactionsProvider: TransactionsProvider
+    private accountsProvider: AccountsProvider
   ) {
     this.model = new AccountDetailsModel();
     if (navParams.get('accountId')) {

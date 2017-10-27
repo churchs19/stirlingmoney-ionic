@@ -1,12 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 
-import { AuthenticationProvider } from '../authentication/authentication';
-import { IUserGroup } from '../../model/user-group';
 import { IUser } from '../../model/user';
+import { IUserGroup } from '../../model/user-group';
 
 /*
   Generated class for the UserGroupProvider provider.

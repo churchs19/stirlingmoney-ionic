@@ -1,38 +1,26 @@
 //Angular
-import { NgModule, ErrorHandler } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
-//Ionic
+import { BrowserModule } from '@angular/platform-browser';
 import { TextMaskModule } from 'angular2-text-mask';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-
-//AngularFire 2
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-// Firebase Settings
-import { FirebaseConfig } from './firebaseConfig';
-
-//App
-import { MyApp } from './app.component';
-
-//Pages
-import { LoginPage } from '../pages/login/login';
-import { SettingsPage } from '../pages/settings/settings';
+import { AccountDetailsPage } from '../pages/account-details/account-details';
 import { AccountsPage } from '../pages/accounts/accounts';
 import { AddEditAccountPage } from '../pages/add-edit-account/add-edit-account';
 import { CategoriesPage } from '../pages/categories/categories';
-import { AccountDetailsPage } from '../pages/account-details/account-details';
-
-//Providers
+import { LoginPage } from '../pages/login/login';
+import { SettingsPage } from '../pages/settings/settings';
+import { AccountsProvider } from '../providers/accounts/accounts';
 import { AuthenticationProvider } from '../providers/authentication/authentication';
 import { SettingsProvider } from '../providers/settings/settings';
-import { AccountsProvider } from '../providers/accounts/accounts';
-import { TransactionsProvider } from '../providers/transactions/transactions';
 import { UserGroupProvider } from '../providers/user-group/user-group';
+import { MyApp } from './app.component';
+import { FirebaseConfig } from './firebaseConfig';
 
 @NgModule({
   declarations: [
@@ -68,7 +56,6 @@ import { UserGroupProvider } from '../providers/user-group/user-group';
     AuthenticationProvider,
     SettingsProvider,
     AccountsProvider,
-    TransactionsProvider,
     UserGroupProvider]
 })
 export class AppModule {}

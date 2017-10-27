@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
+
+import { Injectable } from '@angular/core';
 
 /*
   Generated class for the SettingsProvider provider.
