@@ -44,7 +44,8 @@ export class AddEditAccountPage {
   }
 
   onSubmit() {
-    this.accountsProvider.upsert(this.account).then((result) => {
+    const id = this.accountsProvider.upsert(this.account);
+    this.accountsProvider.get(id).subscribe(() => {
       this.navCtrl.pop();
     });
   }

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Rx';
 
 import { IAccount } from '../../model/account';
 import { IUserGroup } from '../../model/user-group';
 import { AuthenticationProvider } from '../authentication/authentication';
+import { IUser } from '../../model/user';
 
 /*
   Generated class for the AccountsProvider provider.
@@ -15,47 +16,64 @@ import { AuthenticationProvider } from '../authentication/authentication';
 @Injectable()
 export class AccountsProvider {
   constructor(private db: AngularFirestore, private authProvider: AuthenticationProvider) {
+    this.authProvider.user().subscribe(user => {});
   }
 
   public list(): Observable<IAccount[]> {
-    const userGroupDoc = this.db.doc<IUserGroup>(`user-groups/${this.authProvider.userGroup()}`);
-    var list = userGroupDoc.collection<IAccount>(`accounts`);
-    list.snapshotChanges().map((val, index) => {
-      console.log(JSON.stringify(val.map(it => {
-        return it.payload.doc.data;
-      })));
+    // return this.authProvider.user().subscribe(user => {
+    // }).unsubscribe();
+    return this.authProvider.user().switchMap<IUser, IAccount[]>((user, index) => {
+      const userGroupDoc = this.db.doc<IUserGroup>(`user-groups/${user.userGroup}`);
+      var list = userGroupDoc.collection<IAccount>(`accounts`);
+      list.snapshotChanges().map((val, index) => {
+        console.log(
+          JSON.stringify(
+            val.map(it => {
+              return it.payload.doc.data;
+            })
+          )
+        );
+      });
+      return list.valueChanges();
     });
-    return list.valueChanges();
   }
 
   public get(id: string): Observable<IAccount> {
-    return this.db.doc<IAccount>(`user-groups/${this.authProvider.userGroup()}/accounts/${id}`).valueChanges();
+    return this.authProvider.user().switchMap((user) => {
+      return this.db.doc<IAccount>(`user-groups/${user.userGroup}/accounts/${id}`).valueChanges();
+    });
   }
 
-  public delete(id: string): Promise<void> {
-    return this.db.doc<IAccount>(`user-groups/${this.authProvider.userGroup()}/accounts/${id}`)
-      .delete();
+  public delete(id: string) {
+    this.authProvider.user().map((user) => {
+      return this.db.doc<IAccount>(`user-groups/${user.userGroup}/accounts/${id}`).delete();
+    });
   }
 
-  public upsert(item: IAccount): Promise<IAccount> {
-    const userGroupDoc = this.db.doc<IUserGroup>(`user-groups/${this.authProvider.userGroup()}`);
-    if(!item.id) {
-      const id = this.db.createId();
-      item.id = id;
-
-      return userGroupDoc.collection(`accounts`)
-        .doc(item.id)
-        .ref
-        .set(item)
-        .then(() => {
-          return item;
-        });
+  public upsert(item: IAccount): string {
+    let id: string;
+    if (!item.id) {
+      id = this.db.createId();
     } else {
-      return this.db.doc<IAccount>(`user-groups/${this.authProvider.userGroup()}/accounts/${item.id}`)
-        .update(item)
-        .then(() => {
-          return item;
-        });
+      id = item.id;
     }
+    this.authProvider.user().subscribe((user) => {
+      const userGroupDoc = this.db.doc<IUserGroup>(`user-groups/${user.userGroup}`);
+      if(!item.id) {
+        item.id = id;
+        var accountDoc = userGroupDoc
+          .collection(`accounts`)
+          .doc(item.id);
+
+        accountDoc
+          .ref.set(item);
+      } else {
+        this.db
+          .doc<IAccount>(`user-groups/${user.userGroup}/accounts/${item.id}`)
+          .update(item);
+      }
+    });
+
+    return id;
   }
 }

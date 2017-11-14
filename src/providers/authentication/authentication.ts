@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs/Observable';
 
 import { IUser } from '../../model/user';
 import { IUserGroup } from '../../model/user-group';
@@ -9,39 +10,37 @@ import { UserGroupProvider } from '../user-group/user-group';
 
 export enum AuthenticationType {
   Google,
-  Twitter
+  Twitter,
 }
 
 @Injectable()
 export class AuthenticationProvider {
-
-  private fireAuth: firebase.User;
   private usersCollection: AngularFirestoreCollection<IUser>;
-  private _userGroup: string;
+  private currentUserDocument: AngularFirestoreDocument<IUser>;
+  private userObject: IUser;
 
-  constructor(
-    public afAuth: AngularFireAuth,
-    public db: AngularFirestore,
-    public userGroupProvider: UserGroupProvider
-  ) {
+  constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public userGroupProvider: UserGroupProvider) {
     this.usersCollection = this.db.collection<IUser>('users');
     afAuth.authState.subscribe(user => {
       if (user) {
-        this.fireAuth = user;
-        const userDoc = this.db.doc<IUser>('users/' + user.uid);
-        userDoc.valueChanges().subscribe(value => {
-          if(!value) {
-            userDoc.ref.set({
-              uid: user.uid,
-              email: user.email
-            }, {
-              merge: true
-            });
+        const fireAuth = user;
+        this.currentUserDocument = this.db.doc<IUser>('users/' + user.uid);
+        this.currentUserDocument.valueChanges().subscribe(value => {
+          if (!value) {
+            this.currentUserDocument.ref.set(
+              {
+                uid: user.uid,
+                email: user.email,
+                displayName: fireAuth.displayName,
+                photoURL: fireAuth.photoURL,
+              },
+              {
+                merge: true,
+              }
+            );
           } else {
-            if(!value.userGroup) {
-              this.createUserGroup(userDoc.ref).then(id => this._userGroup = id);
-            } else {
-              this._userGroup = value.userGroup;
+            if (!value.userGroup) {
+              this.createUserGroup(this.currentUserDocument.ref, fireAuth.uid, fireAuth.email);
             }
           }
         });
@@ -49,51 +48,31 @@ export class AuthenticationProvider {
     });
   }
 
-  private createUserGroup(userDocRef: firebase.firestore.DocumentReference): Promise<string> {
-    const userGroup: IUserGroup = { members: [] }
-    userGroup.members.push({ uid: this.uid(), email: this.email()});
-    return this.userGroupProvider.insert(userGroup).then((insertedGroup) => {
-      return userDocRef.set({
-        userGroup: insertedGroup.id
-      }, {
-        merge: true
-      }).then(() => {
-        return insertedGroup.id;
-      });
+  public user(): Observable<IUser> {
+    if(this.userObject) {
+      return Observable.of(this.userObject);
+    } else {
+      return this.currentUserDocument.valueChanges();
+    }
+  }
+
+  private createUserGroup(userDocRef: firebase.firestore.DocumentReference, uid: string, email: string): Promise<string> {
+    const userGroup: IUserGroup = { members: [] };
+    userGroup.members.push({ uid: uid, email: email });
+    return this.userGroupProvider.insert(userGroup).then(insertedGroup => {
+      return userDocRef
+        .set(
+          {
+            userGroup: insertedGroup.id,
+          },
+          {
+            merge: true,
+          }
+        )
+        .then(() => {
+          return insertedGroup.id;
+        });
     });
-  }
-
-  public uid(): string {
-    if (this.fireAuth) {
-      return this.fireAuth.uid;
-    }
-    return null;
-  }
-
-  public displayName(): string {
-    if (this.fireAuth) {
-      return this.fireAuth.displayName;
-    }
-    return null;
-  }
-
-  public photoURL(): string {
-    if (this.fireAuth) {
-      return this.fireAuth.photoURL;
-    }
-    return null;
-  }
-
-  public email(): string {
-    if (this.fireAuth) {
-      return this.fireAuth.email;
-    }
-    return null;
-  }
-
-  public userGroup(): string {
-    console.log(this._userGroup);
-    return this._userGroup;
   }
 
   public login(type: AuthenticationType = AuthenticationType.Google) {

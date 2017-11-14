@@ -15,16 +15,18 @@ import { AddEditAccountPage } from '../add-edit-account/add-edit-account';
 */
 @Component({
   selector: 'page-accounts',
-  templateUrl: 'accounts.html'
+  templateUrl: 'accounts.html',
 })
 export class AccountsPage {
   @ViewChild(List) list: List;
   accounts: Observable<IAccount[]>;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public actionSheetCtrl: ActionSheetController,
-              private accountsProvider: AccountsProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public actionSheetCtrl: ActionSheetController,
+    private accountsProvider: AccountsProvider
+  ) {
     this.accounts = this.accountsProvider.list();
 
     this.accounts.subscribe(item => {
@@ -39,14 +41,14 @@ export class AccountsPage {
   accountDetails(account: IAccount) {
     console.log(JSON.stringify(account));
     this.navCtrl.push(AccountDetailsPage, {
-      account: account
+      account: account,
     });
   }
 
   addAccount() {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
-      mode: 'Add'
+      mode: 'Add',
     });
   }
 
@@ -54,7 +56,7 @@ export class AccountsPage {
     this.list.closeSlidingItems();
     this.navCtrl.push(AddEditAccountPage, {
       mode: 'Edit',
-      account: account
+      account: account,
     });
   }
 
@@ -62,7 +64,8 @@ export class AccountsPage {
     let _account = account;
     let actionSheet = this.actionSheetCtrl.create({
       title: 'Delete account?',
-      buttons: [{
+      buttons: [
+        {
           text: 'Delete',
           role: 'destructive',
           icon: 'trash',
@@ -70,7 +73,7 @@ export class AccountsPage {
             console.log(_account.id);
             this.accountsProvider.delete(_account.id);
             this.list.closeSlidingItems();
-          }
+          },
         },
         {
           text: 'Cancel',
@@ -78,12 +81,11 @@ export class AccountsPage {
           icon: 'close',
           handler: () => {
             this.list.closeSlidingItems();
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
 
     actionSheet.present();
-
   }
 }
