@@ -19,7 +19,7 @@ import { AddEditAccountPage } from '../add-edit-account/add-edit-account';
 })
 export class AccountsPage {
   @ViewChild(List) list: List;
-  accounts: Observable<IAccount[]>;
+  public accounts: Observable<IAccount[]>;
 
   constructor(
     public navCtrl: NavController,
@@ -27,11 +27,7 @@ export class AccountsPage {
     public actionSheetCtrl: ActionSheetController,
     private accountsProvider: AccountsProvider
   ) {
-    this.accounts = this.accountsProvider.list();
-
-    this.accounts.subscribe(item => {
-      console.log(JSON.stringify(item));
-    });
+    this.accounts = accountsProvider.list();
   }
 
   ionViewDidLoad() {

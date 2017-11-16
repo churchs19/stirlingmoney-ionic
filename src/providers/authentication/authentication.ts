@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
@@ -15,12 +15,10 @@ export enum AuthenticationType {
 
 @Injectable()
 export class AuthenticationProvider {
-  private usersCollection: AngularFirestoreCollection<IUser>;
   private currentUserDocument: AngularFirestoreDocument<IUser>;
   private userObject: IUser;
 
   constructor(public afAuth: AngularFireAuth, public db: AngularFirestore, public userGroupProvider: UserGroupProvider) {
-    this.usersCollection = this.db.collection<IUser>('users');
     afAuth.authState.subscribe(user => {
       if (user) {
         const fireAuth = user;

@@ -25,15 +25,15 @@ export class AccountsProvider {
     return this.authProvider.user().switchMap<IUser, IAccount[]>((user, index) => {
       const userGroupDoc = this.db.doc<IUserGroup>(`user-groups/${user.userGroup}`);
       var list = userGroupDoc.collection<IAccount>(`accounts`);
-      list.snapshotChanges().map((val, index) => {
-        console.log(
-          JSON.stringify(
-            val.map(it => {
-              return it.payload.doc.data;
-            })
-          )
-        );
-      });
+      // list.snapshotChanges().map((val, index) => {
+      //   console.log(
+      //     JSON.stringify(
+      //       val.map(it => {
+      //         return it.payload.doc.data;
+      //       })
+      //     )
+      //   );
+      // });
       return list.valueChanges();
     });
   }

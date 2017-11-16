@@ -3,7 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { IAccount } from '../../model/account';
 import { AccountsProvider } from '../../providers/accounts/accounts';
-import { AuthenticationProvider } from '../../providers/authentication/authentication';
 
 /*
   Generated class for the AddEditAccount page.
@@ -21,8 +20,7 @@ export class AddEditAccountPage {
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
-    private accountsProvider: AccountsProvider,
-    private authProvider: AuthenticationProvider
+    private accountsProvider: AccountsProvider
   ) {
     if (navParams.get('mode')) {
       this.mode = navParams.get('mode');
